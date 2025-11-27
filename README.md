@@ -1,6 +1,7 @@
 # 🐉 Project Overview - Naming Master
 
 > **Capstone Project for the Google AI Agents Intensive**
+> 
 > *Track: Concierge Agents | Built with Google ADK & Gemini 2.5 Flash-Lite*
 
 This project contains the core logic for **Naming Master**, a hybrid multi-agent system designed to help non-native speakers find authentic, meaningful, and culturally safe Chinese names.
