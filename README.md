@@ -7,7 +7,23 @@ This project contains the core logic for **Naming Master**, a hybrid multi-agent
 
 ### Problem Statement
 
-Finding a Chinese name is notoriously difficult for non-native speakers. With over **6.1 billion possible combinations**, a direct translation often results in names that sound awkward, have negative homophones (e.g., sounding like "death" or "pig"), or lack cultural significance. The complexity of balancing **Phonetics** (sound), **Meaning** (semantics), and **Onomastics** (numerology/luck) creates a significant hurdle, forcing many to settle for generic or accidentally offensive names.
+Finding a Chinese name is notoriously difficult for non-native speakers. With over **6.1 billion possible combinations**, a direct translation often results in names that sound awkward, have negative homophones (e.g., sounding like "death" or "pig"), are vulgar and boring, or lack cultural significance. 
+
+To find a _good_ name, one must balance five conflicting dimensions:
+
+- **🔊 Phonetics:** Does it sound like the original English name?
+    
+- **📖 Meaning:** Do the characters convey elegance, strength, or virtue?
+    
+- **🛡️ Cultural Safety:** Is it free of embarrassing homophones or slang?
+    
+- **🧮 Onomastics (Numerology):** Does the stroke count align with traditional "Sancai" luck algorithms?
+    
+- **🌏 Authenticity:** Does it sound like a real name from a Chinese-speaking region?
+    
+
+This complexity  of balancing **Phonetics** (sound), **Meaning** (semantics), and **Onomastics** (numerology/luck) creates a significant hurdle—not just for foreigners, but also for native speakers.
+
 
 ### Solution Statement
 
@@ -15,7 +31,7 @@ Finding a Chinese name is notoriously difficult for non-native speakers. With ov
 
 ### Value Statement
 
-Naming Master transforms a process that usually requires a human consultant into an instant, reliable service. By automating the "Safety Audit" (homophone check) and "Luck Calculation" (stroke math), it saves users hours of research and prevents lifelong embarrassment from choosing a culturally inappropriate name.
+Naming Master transforms a process that usually requires a human consultant into an instant, reliable service. By automating the "Safety Audit" (homophone check) and "Luck Calculation" (stroke math), users save hours of research and are prevented from lifelong embarrassment by choosing a culturally inappropriate name.
 
 ---
 
@@ -73,23 +89,26 @@ adk web namer_agent
 
 ---
 
-### Example InteractionUser: 
+### 💡 Example Interaction
 
-**User**: "My name is Mary Smith, Female."
+**User:** "My name is Mary Smith, Female."
 
-**Agent**:
+**Agent Process:**
+> 1.  **Surname Map:** Detected "Smith" → Mapped to Authentic Surname **'Shi' (史)**
+> 2.  **Strategy Engine:**
+>     * *Phonetic:* Transliterating "Mary" → **'Mei-Li' (梅莉)**
+>     * *Semantic:* Extracting meaning "Mary" (Sea/Bitter) → **'Hai Yue' (海悅 - Ocean Joy)**
+> 3.  **Safety Audit:** Scanning for negative homophones... **Passed (Safe)**
+> 4.  **Numerology:** Calculating Sancai Stroke Luck... **95 (Auspicious)**
+> 5.  **Synthesis:** Ranking top 5 candidates...
 
-1. Detects 'Smith' -> Maps "Smith" to Surname 'Shi' (史)
-2. Transliterates 'Mary' -> 'Mei-Li' (梅莉)
-3. Calculates Stroke Luck -> 95 (Auspicious)
-4. Summarize the top 5 Chinese name 
-
+**Final Output:**
 
 | Rank | Name | Meaning | Safety | Luck Score |
 | :--- | :--- | :--- | :--- | :--- |
 | 🥇 | **史梅莉** (Shǐ Méi Lì) | **史**: History, Chronicle (Surname)<br>**梅**: Plum Blossom, resilience<br>**莉**: Jasmine, elegance | ✅ Safe: No negative homophones found. | **95** (Auspicious) |
 | 🥈 | **史瑪莉** (Shǐ Mǎ Lì) | **史**: History, Chronicle<br>**瑪**: Agate, precious stone<br>**莉**: Jasmine | ✅ Safe: Standard transliteration. | **95** (Auspicious) |
-| 🥉 | **史海悅** (Shǐ Hǎi Yuè) | **史**: History<br>**海**: Ocean (Related to 'Mary/Bitter Sea')<br>**悅**: Joy, delight | ✅ Safe: Positive meaning. | **88** (Balanced) |
+| 🥉 | **史海悅** (Shǐ Hǎi Yuè) | **史**: History<br>**海**: Ocean (Related to 'Mary')<br>**悅**: Joy, delight | ✅ Safe: Positive meaning. | **88** (Balanced) |
 | 4 | **史雅麗** (Shǐ Yǎ Lì) | **史**: History<br>**雅**: Elegant, refined<br>**麗**: Beautiful | ✅ Safe: Very common and positive. | **78** (Good) |
 | 5 | **史馬麗** (Shǐ Mǎ Lì) | **史**: History<br>**馬**: Horse<br>**麗**: Beautiful | ⚠️ Note: 'Ma' (Horse) is safe, but can be associated with slang in rare contexts. | **74** (Average) |
 
