@@ -1,4 +1,5 @@
 # 🐉 Project Overview - Naming Master
+<img width="2752" height="1536" alt="NamingMasterAgent_10000" src="https://github.com/user-attachments/assets/c2c8ba12-8131-42de-8e0c-0d223cedd5fc" />
 
 > **Capstone Project for the Google AI Agents Intensive**
 > 
