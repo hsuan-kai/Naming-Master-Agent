@@ -76,8 +76,9 @@ This project was built against Python 3.10+.
 
 **1. Install Dependencies**
 ```bash
-pip install google-adk google-generativeai
+pip install -r requirements.txt
 ```
+
 **2. Set API Key**
 ```bash
 export GOOGLE_API_KEY="your_api_key_here"
@@ -87,6 +88,12 @@ export GOOGLE_API_KEY="your_api_key_here"
 ```bash
 # Run from the root directory
 adk web namer_agent
+```
+
+## 4. Running Tests (optional)
+To verify the agent's logic programmatically, run the integration test:
+```bash
+python -m tests.test_agent
 ```
 
 ---
