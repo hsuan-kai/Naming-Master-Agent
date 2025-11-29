@@ -46,18 +46,22 @@ Core to Naming Master is a **Stateless Root Agent** pattern that ensures reliabi
 
 The system is powered by a unique **Atomic Tool** (`generate_and_analyze_names`) that encapsulates the entire naming pipeline into a single transaction, preventing agent memory loss or timeouts.
 
-**1. The Knowledge Engine (The Rational Brain)**
-A deterministic Python class that grounds the agent in facts. It contains:
-* **Surname Map:** A database mapping Western surnames (e.g., "Smith" → "Shi") and internet handles to authentic Chinese surnames.
-* **Stroke Database:** A hard-coded dictionary of Kangxi stroke counts to ensure 100% mathematical accuracy for numerology, solving the issue where LLMs often "guess" stroke counts incorrectly.
+**1. The Knowledge Engine (The Librarian)** 
+A deterministic Python class that acts as the system's memory and rule-keeper.
+* **Surname Map:** Like a library archive, it retrieves the correct authentic Chinese surname for Western names (e.g., "Smith" → "Shi") without guessing.    
+* **Stroke Database:** A hard-coded registry of Kangxi stroke counts to ensure 100% mathematical accuracy for numerology, solving the issue where LLMs often "hallucinate" stroke counts incorrectly.
+    
 
-**2. The Generator Pipeline (The Creative Brain)**
-Uses `gemini-2.5-flash-lite` to phonetically transliterate the user's First Name while strictly adhering to the surname provided by the Knowledge Engine. It optimizes for elegance and standard length (2-3 characters).
+**2. The Dual-Pipeline Generation (The Creator)** 
+Instead of a simple translation, the Atomic Tool executes two parallel logic streams:
+* **Constraint Logic:** The Name Creator accepts the "non-negotiable" facts (Surname) from the Librarian. 
+* **Creative Logic:** It uses `gemini-2.5-flash-lite` to invent phonetic transliterations for the First Name, optimizing for elegance, gender nuance, and flow.
+    
 
-**3. The Safety Audit (The Validator)**
-Every generated name immediately passes through a dual-check system:
-* **Math Check:** Calculates the "Luck Score" based on the stroke count database.
-* **Linguistic Check:** An LLM audit to scan for negative homophones or slang associations.
+**3. The Post-Processing Audit (The Validators)** 
+Every generated candidate must pass a rigorous final check before being shown to the user:
+* **Math Audit:** The Fortune Teller calculates the "Luck Score" using its deterministic database.    
+* **Linguistic Audit:** The Semantic Auditor performs a self-reflection pass to scan for negative homophones or slang associations.
 
 ---
 
