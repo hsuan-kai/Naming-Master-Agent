@@ -44,24 +44,37 @@ Core to Naming Master is a **Stateless Root Agent** pattern that ensures reliabi
 
 <img width="2268" height="598" alt="Architecture" src="NamingMasterAgent_Architecture.png" />
 
-The system is powered by a unique **Atomic Tool** (`generate_and_analyze_names`) that encapsulates the entire naming pipeline into a single transaction, preventing agent memory loss or timeouts.
 
-**1. The Knowledge Engine (The Librarian)** 
-A deterministic Python class that acts as the system's memory and rule-keeper.
-* **Surname Map:** Like a library archive, it retrieves the correct authentic Chinese surname for Western names (e.g., "Smith" → "Shi") without guessing.    
-* **Stroke Database:** A hard-coded registry of Kangxi stroke counts to ensure 100% mathematical accuracy for numerology, solving the issue where LLMs often "hallucinate" stroke counts incorrectly.
+The system uses a **Stateless Root Agent** pattern to ensure reliability across multi-turn conversations. The **Atomic Tool** (`generate_and_analyze_names`) orchestrates a 4-step pipeline using specialized "Sub-Personas":
+
+**1. The Name Librarian (Knowledge Base)**
+
+* **Role:** Constraint & Mapping
+    
+* **Function:** Before any AI generation happens, the Librarian queries the internal database to map Western surnames (e.g., "Smith" → "Shi 史") or handles (e.g., "kamilky" → "Kang 康") to authentic Chinese surnames. This ensures the foundation of the name is culturally correct, not phonetic gibberish.
     
 
-**2. The Dual-Pipeline Generation (The Creator)** 
-Instead of a simple translation, the Atomic Tool executes two parallel logic streams:
-* **Constraint Logic:** The Name Creator accepts the "non-negotiable" facts (Surname) from the Librarian. 
-* **Creative Logic:** It uses `gemini-2.5-flash-lite` to invent phonetic transliterations for the First Name, optimizing for elegance, gender nuance, and flow.
+**2. The Name Creator (Gemini 2.5)**
+
+* **Role:** Generative Creativity
+    
+* **Function:** Accepts the mandatory surname from the Librarian and uses `gemini-2.5-flash-lite` to creatively transliterate the _Given Name_. It optimizes for elegance, gender nuance, and concise 2-3 character structures.
     
 
-**3. The Post-Processing Audit (The Validators)** 
-Every generated candidate must pass a rigorous final check before being shown to the user:
-* **Math Audit:** The Fortune Teller calculates the "Luck Score" using its deterministic database.    
-* **Linguistic Audit:** The Semantic Auditor performs a self-reflection pass to scan for negative homophones or slang associations.
+**3. The Fortune Teller (Knowledge Base)**
+
+* **Role:** Mathematical Audit
+    
+* **Function:** Once names are generated, the Fortune Teller takes over. It calculates the **Sancai Luck Score** using a hard-coded Kangxi stroke database. This solves the "LLM Hallucination" problem by ensuring the numerology is mathematically perfect (0-100 score).
+    
+
+**4. The Semantic Auditor (Gemini 2.5)**
+
+* **Role:** Safety & Linguistic Audit
+    
+* **Function:** A final pass where the AI critiques its own work. It scans for negative homophones (e.g., "Si-Ma" sounding like "Dead Horse") and generates the character-by-character meaning breakdown for the final report.
+
+
 
 ---
 
