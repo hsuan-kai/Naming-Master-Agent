@@ -1,4 +1,7 @@
 # namer_agent/knowledge_base.py
+# ==============================================================================
+# 🧠 KNOWLEDGE ENGINE
+# ==============================================================================
 class NamingKnowledgeBase:
     def __init__(self):
         self.surname_map = {
