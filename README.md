@@ -7,7 +7,7 @@
 
 This project contains the core logic for **Naming Master**, a hybrid multi-agent system designed to help non-native speakers find authentic, meaningful, and culturally safe Chinese names.
 
-### Problem Statement
+## Problem Statement
 
 Finding a Chinese name is notoriously difficult for non-native speakers. With over **6.1 billion possible combinations**, a direct translation often results in names that sound awkward, have negative homophones (e.g., sounding like "death" or "pig"), are vulgar and boring, or lack cultural significance. 
 
@@ -27,17 +27,17 @@ To find a _good_ name, one must balance five conflicting dimensions:
 This complexity  of balancing **Phonetics** (sound), **Meaning** (semantics), and **Onomastics** (numerology/luck) creates a significant hurdle—not just for foreigners, but also for native speakers.
 
 
-### Solution Statement
+## Solution Statement
 
 **Naming Master** acts as a "Lead Cultural Consultant" agent. Instead of relying on a single LLM prompt, it orchestrates a sophisticated pipeline that combines **Generative AI** (for linguistic nuance and creativity) with a deterministic **Knowledge Engine** (for accurate stroke counting and surname mapping). This hybrid approach ensures that every generated name is not only phonetically accurate but also mathematically "lucky" according to traditional Sancai numerology, thereby solving the "hallucination problem" common in pure LLM solutions.
 
-### Value Statement
+## Value Statement
 
 Naming Master transforms a process that usually requires a human consultant into an instant, reliable service. By automating the "Safety Audit" (homophone check) and "Luck Calculation" (stroke math), users save hours of research and are prevented from lifelong embarrassment by choosing a culturally inappropriate name.
 
 ---
 
-### Architecture
+## Architecture
 
 Core to Naming Master is a **Stateless Root Agent** pattern that ensures reliability across multi-turn conversations. It does not just "chat"; it executes a rigorous **Atomic Workflow** for every request.
 
@@ -60,7 +60,7 @@ Every generated name immediately passes through a dual-check system:
 
 ---
 
-### Key Features & Concepts
+## Key Features & Concepts
 
 In this submission, I demonstrate the following advanced ADK concepts:
 
@@ -70,7 +70,7 @@ In this submission, I demonstrate the following advanced ADK concepts:
 
 ---
 
-### Installation & Usage
+## Installation & Usage
 
 This project was built against Python 3.10+.
 
@@ -91,7 +91,7 @@ adk web namer_agent
 
 ---
 
-### 💡 Example Interaction
+## 💡 Example Interaction
 
 **User:** "My name is Mary Smith, Female."
 
@@ -113,6 +113,72 @@ adk web namer_agent
 | 🥉 | **史海悅** (Shǐ Hǎi Yuè) | **史**: History<br>**海**: Ocean (Related to 'Mary')<br>**悅**: Joy, delight | ✅ Safe: Positive meaning. | **88** (Balanced) |
 | 4 | **史雅麗** (Shǐ Yǎ Lì) | **史**: History<br>**雅**: Elegant, refined<br>**麗**: Beautiful | ✅ Safe: Very common and positive. | **78** (Good) |
 | 5 | **史馬麗** (Shǐ Mǎ Lì) | **史**: History<br>**馬**: Horse<br>**麗**: Beautiful | ⚠️ Note: 'Ma' (Horse) is safe, but can be associated with slang in rare contexts. | **74** (Average) |
+
+
+---
+## ☁️ Deployment (Google Cloud Agent Engine)
+
+This project is ready for deployment on **Google Cloud Vertex AI Agent Engine**. Follow these steps to deploy your own instance.
+
+### 1. Prerequisites
+* A Google Cloud Platform (GCP) Project.
+* The [Google Cloud SDK (gcloud)](https://cloud.google.com/sdk/docs/install) installed and authenticated.
+* A Gemini API Key.
+
+### 2. Configuration
+To keep your API key secure, we generate the configuration file locally. Do **not** commit this file to GitHub.
+
+**Step A: Create the Engine Config**
+Create a file named `namer_agent/.agent_engine_config.json` with your specific settings:
+
+```json
+{
+  "min_instances": 1,
+  "max_instances": 2,
+  "resource_limits": {
+    "cpu": "1",
+    "memory": "2Gi"
+  },
+  "environment_variables": {
+    "MODEL_NAME": "gemini-2.5-flash-lite",
+    "GOOGLE_API_KEY": "YOUR_GEMINI_API_KEY_HERE"
+  }
+}
+```
+> Note: Replace YOUR_GEMINI_API_KEY_HERE with your actual key.
+
+**Step B: Create the Environment File Create a .env file in the root directory:**
+```Bash
+GOOGLE_CLOUD_PROJECT="your-project-id"
+GOOGLE_CLOUD_LOCATION="us-central1"
+GOOGLE_GENAI_USE_VERTEXAI=0
+```
+
+### 3. Deployment
+Run the following command from the root of the repository to deploy the agent:
+```Bash
+# 1. Set your project ID
+export PROJECT_ID="your-google-cloud-project-id"
+export REGION="us-central1"
+
+# 2. Deploy using the ADK CLI
+adk deploy agent_engine \
+    --project ${PROJECT_ID} \
+    --region ${REGION} \
+    namer_agent \
+    --agent_engine_config_file namer_agent/.agent_engine_config.json
+```
+
+### 4. Verification
+Once deployed, you can verify the agent status:
+```Python
+import vertexai
+from vertexai.preview import reasoning_engines
+
+vertexai.init(project="your-project-id", location="us-central1")
+agents = reasoning_engines.ReasoningEngine.list()
+print(agents[0])
+```
 
 ---
 Citation
