@@ -181,5 +181,6 @@ print(agents[0])
 ```
 
 ---
-Citation
+## Citation
+
 Addison Howard, Brenda Flynn, Eric Schmidt, Kanchana Patlolla, Kinjal Parekh, María Cruz, Naz Bayrak, Polong Lin, and Ray Harvey. Agents Intensive - Capstone Project. https://kaggle.com/competitions/agents-intensive-capstone-project, 2025. Kaggle.
