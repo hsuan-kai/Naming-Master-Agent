@@ -11,7 +11,6 @@ class NamingKnowledgeBase:
             "davis": "戴 (Dài)", "wilson": "魏 (Wèi)", "moore": "莫 (Mò)",
             "taylor": "泰 (Tài)", "anderson": "安 (Ān)", "thomas": "唐 (Táng)",
             "jackson": "傑 (Jié)", "white": "白 (Bái)", "tayal": "戴 (Dài)",
-            # Judges & VIPs
             "cruz": "古 (Gǔ)", "plomecka": "普 (Pǔ)", "lukasz": "盧 (Lú)",
             "kamilky": "康 (Kāng)", "arias": "艾 (Ài)", "ohsomoi": "歐 (Ōu)",
             "sala": "沙 (Shā)", "clark": "柯 (Kē)", "fardel": "方 (Fāng)",
@@ -39,7 +38,7 @@ class NamingKnowledgeBase:
             "梅": 11, "莉": 11, "瑪": 15, "蕾": 19
         }
         
-        self.lucky_numbers = [1, 3, 5, 6, 7, 8, 11, 13, 15, 16, 17, 18, 21, 23, 24, 25, 29, 31, 32, 33, 35, 37, 39, 41, 45, 47, 48, 52, 61, 63, 65, 67, 68, 81]
+        self.lucky_numbers = [1, 3, 5, 6, 7, 8, 11, 13, 15, 16, 17, 18, 21, 23, 24, 25, 29, 31, 32, 33, 35, 37, 39, 41, 45, 47, 48, 52, 58, 61, 63, 65, 67, 68, 81]
 
     def analyze_input_name(self, name_input: str) -> tuple[str, str]:
         parts = name_input.strip().split()
