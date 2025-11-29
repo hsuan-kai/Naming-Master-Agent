@@ -1,4 +1,7 @@
 # namer_agent/config.py
+# ==============================================================================
+# ⚙️ Configration
+# ==============================================================================
 import os
 from google.genai import types
 from google.adk.models.google_llm import Gemini
