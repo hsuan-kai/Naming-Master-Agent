@@ -201,6 +201,10 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
+# Deployment Secrets
+namer_agent/.agent_engine_config.json
+.env
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
