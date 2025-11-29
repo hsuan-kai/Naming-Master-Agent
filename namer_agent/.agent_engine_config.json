@@ -1,0 +1,11 @@
+{
+  "min_instances": 0,
+  "max_instances": 1,
+  "resource_limits": {
+    "cpu": "1",
+    "memory": "512Mi"
+  },
+  "environment_variables": {
+    "MODEL_NAME": "gemini-2.5-flash-lite"
+  }
+}
