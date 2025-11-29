@@ -1,5 +1,5 @@
 # 🐉 Project Overview - Naming Master
-<img width="2752" height="1536" alt="NamingMasterAgent_10000" src="NamingMasterAgent-smaller.jpg" />
+<img width="2752" height="1536" alt="NamingMasterAgent" src="NamingMasterAgent-smaller.jpg" />
 
 > **Capstone Project for the Google AI Agents Intensive**
 > 
@@ -10,6 +10,7 @@ This project contains the core logic for **Naming Master**, a hybrid multi-agent
 ## Problem Statement
 
 Finding a Chinese name is notoriously difficult for non-native speakers. With over **6.1 billion possible combinations**, a direct translation often results in names that sound awkward, have negative homophones (e.g., sounding like "death" or "pig"), are vulgar and boring, or lack cultural significance. 
+<img width="2752" height="1536" alt="DeadHorse" src="dead_horse.jpg" />
 
 To find a _good_ name, one must balance five conflicting dimensions:
 
@@ -41,7 +42,7 @@ Naming Master transforms a process that usually requires a human consultant into
 
 Core to Naming Master is a **Stateless Root Agent** pattern that ensures reliability across multi-turn conversations. It does not just "chat"; it executes a rigorous **Atomic Workflow** for every request.
 
-<img width="2268" height="598" alt="Untitled diagram-2025-11-26-124505" src="NamingMasterAgent_Architecture.png" />
+<img width="2268" height="598" alt="Architecture" src="NamingMasterAgent_Architecture.png" />
 
 The system is powered by a unique **Atomic Tool** (`generate_and_analyze_names`) that encapsulates the entire naming pipeline into a single transaction, preventing agent memory loss or timeouts.
 
