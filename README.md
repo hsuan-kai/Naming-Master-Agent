@@ -9,7 +9,7 @@ This project contains the core logic for **Naming Master**, a hybrid multi-agent
 
 ## Problem Statement
 
-Finding a Chinese name is notoriously difficult for non-native speakers. With over **6.1 billion possible combinations**, a direct translation often results in names that sound awkward, have negative homophones (e.g., sounding like "death" or "pig"), are vulgar and boring, or lack cultural significance. 
+Finding a Chinese name is notoriously difficult for non-native speakers. With over **6.1 billion possible combinations**, a direct translation often results in names that sound awkward, have negative homophones (e.g., sounding like "death horse" or "pig"), are vulgar and boring, or lack cultural significance. 
 <img width="2752" height="1536" alt="DeadHorse" src="dead_horse.jpg" />
 
 To find a _good_ name, one must balance five conflicting dimensions:
