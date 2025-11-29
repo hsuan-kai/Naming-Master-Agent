@@ -16,25 +16,31 @@ def generate_and_analyze_names(gender: str, full_name: str) -> Dict[str, dict]:
     
     # 1. Mapping
     mapped_surname, logic = kb.analyze_input_name(full_name)
+    
+    # Context Preparation
     parts = full_name.split()
     first_name_eng = parts[0]
     
     surname_instruction = f"User's Surname is '{mapped_surname}'. **YOU MUST USE THIS CHARACTER AS THE SURNAME.**" if mapped_surname else "Pick a phonetic surname."
+    
+    # Check for specific shortenings (Abraham -> BoHan)
     short_name_suggestion = kb.get_short_name(first_name_eng)
     short_instruction = f"Note: '{first_name_eng}' is often translated as '{short_name_suggestion}'." if short_name_suggestion else ""
 
     model = genai.GenerativeModel(MODEL_NAME)
     gen_prompt = f"""
-    Task: Generate 5 distinct Chinese names for "{full_name}" ({gender}).
-    RULES:
-    1. Surname: {surname_instruction}
-    2. Given Name: {short_instruction} Must sound like "{first_name_eng}".
-    3. Length: STRICTLY 3 CHARACTERS MAX.
-    4. Script: Traditional Chinese (繁體) ONLY.
-    5. Style: Elegant, Meaningful.
-    Return ONLY a Python list of strings.
-    """
+    Task: Generate exact 5 distinct Chinese names for "{full_name}" ({gender}).
     
+    **RULES:**
+    1. **Surname:** {surname_instruction}
+    2. **Given Name:** {short_instruction} Must sound like "{first_name_eng}".
+    3. **Length:** **STRICTLY 3 CHARACTERS MAX** (1 Surname + 2 Given Name). 
+    4. **Script:** Traditional Chinese (繁體) ONLY.
+    5. **Style:** Elegant, Meaningful, Native-sounding.
+    
+    Return ONLY a Python list of strings. Example: ["柯博翰", "柯伯韓"]
+    """
+
     candidates = []
     try:
         res = model.generate_content(gen_prompt)
@@ -46,14 +52,20 @@ def generate_and_analyze_names(gender: str, full_name: str) -> Dict[str, dict]:
             candidates = ast.literal_eval(match.group(0)) if match else []
     except:
         candidates = []
-    
+
     if not candidates: return {"Error": "Generation Failed"}
 
-    # 2. Analyze
+    # 2. Analyze (Updated Prompt for Breakdown)
     results = {}
     ling_prompt = f"""
     Analyze these names: {candidates}
-    Format: For 'meaning', break down characters with colons (e.g. 'Mei: Plum').
+    
+    **CRITICAL FORMATTING INSTRUCTION:**
+    For 'meaning', you MUST break down EACH character separately with a colon.
+    Example: "史: History; 梅: Plum; 莉: Jasmine"
+    
+    For 'safety': Check for bad homophones.
+    Example: No obvious bad homophones. However, 馬 (mǎ) can sometimes be associated with negative concepts like '馬子' (mǎ zǐ - vulgar terms for girlfriend, and the old name for "toilet") in certain contexts, but it's not a direct or strong negative homophone in this name.
     Return ONLY a JSON object keyed by name.
     """
     try:
@@ -63,6 +75,7 @@ def generate_and_analyze_names(gender: str, full_name: str) -> Dict[str, dict]:
             linguistic_data = json.loads(text)
         except:
             linguistic_data = ast.literal_eval(text)
+        
         if isinstance(linguistic_data, list):
             new_data = {}
             for item in linguistic_data:
@@ -71,11 +84,14 @@ def generate_and_analyze_names(gender: str, full_name: str) -> Dict[str, dict]:
     except:
         linguistic_data = {}
 
-    # 3. Merge
-    for name in candidates:
+# 3. Merge (The Robust Loop)
+    for name in candidates: # Loop over CANDIDATES, not DATA
         math_data = kb.calculate_math_luck(name)
-        ling_data = linguistic_data.get(name, {"meaning": "Elegant Transliteration", "safety": "Safe"})
-        meaning = ling_data.get("meaning", "Elegant Transliteration")
+        
+        # Safe Fetch: If analysis failed for this name, use fallback
+        ling_data = linguistic_data.get(name, {"meaning": "Standard Transliteration", "safety": "Safe"})
+        
+        meaning = ling_data.get("meaning", "Standard Transliteration")
         if len(meaning) < 10 or "Name" in meaning: meaning = "Phonetic match with elegant characters."
 
         results[name] = {
@@ -85,4 +101,8 @@ def generate_and_analyze_names(gender: str, full_name: str) -> Dict[str, dict]:
             "score": math_data["score"],
             "verdict": math_data["verdict"]
         }
+        
     return results
+
+
+    
