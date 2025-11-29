@@ -41,7 +41,7 @@ Naming Master transforms a process that usually requires a human consultant into
 
 Core to Naming Master is a **Stateless Root Agent** pattern that ensures reliability across multi-turn conversations. It does not just "chat"; it executes a rigorous **Atomic Workflow** for every request.
 
-<img width="2268" height="598" alt="Untitled diagram-2025-11-26-124505" src="https://github.com/user-attachments/assets/6b78b23c-e268-4879-a1a5-8720c2370fc0" />
+<img width="2268" height="598" alt="Untitled diagram-2025-11-26-124505" src="NamingMasterAgent_Architecture.png" />
 
 The system is powered by a unique **Atomic Tool** (`generate_and_analyze_names`) that encapsulates the entire naming pipeline into a single transaction, preventing agent memory loss or timeouts.
 
