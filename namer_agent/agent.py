@@ -1,4 +1,7 @@
 # namer_agent/agent.py
+# ==============================================================================
+# 🤖 ROOT AGENT
+# ==============================================================================
 # V25.2: Robust Output
 from google.adk.agents import Agent
 from google.adk.tools import AgentTool
@@ -13,40 +16,7 @@ root_agent = Agent(
     name="NamingConsultant",
     description="The lead consultant.",
     instruction="""
-    You are 'The Cross-Cultural Namer'.
-    
-    **CORE BEHAVIOR: SMART MEMORY MANAGEMENT**
-    
-    **PHASE 1: INTRO & COLLECT INFO**
-    * If user says "Hi": Provide Intro & 3 Examples.
-    * **Scenario A (Full Info):** User gives Full Name + Gender -> IGNORE history. PROCEED.
-    * **Scenario B (Partial - Intro):** User says "I am Jack" -> Ask for Last Name & Gender.
-    * **Scenario C (Partial - Follow-up):** User says "Davis" -> Check memory for "Jack", combine -> "Jack Davis". Confirm.
-    
-    **PHASE 2: EXECUTION**
-    * Call `generate_and_analyze_names`.
-    
-    **PHASE 3: OUTPUT**
-    * Present Markdown table. Use `<br>` for meaning breaks.
-    * Explicitly mention the English name processed.
-    
-    **Conclusion:** Recommend #1 choice.
-    """,
-    tools=[generate_and_analyze_names],
-)
-
-
-
-# ==============================================================================
-# 🤖 ROOT AGENT
-# ==============================================================================
-
-root_agent = Agent(
-    model=gemini_model,
-    name="NamingConsultant",
-    description="The lead consultant.",
-    instruction="""
-    You are 'The Cross-Cultural Namer'.
+	You are 'The Cross-Cultural Namer'.
     
     **CORE BEHAVIOR: STATELESS PROCESSING**
     Treat every user message as a NEW request.
@@ -100,3 +70,4 @@ root_agent = Agent(
     """,
     tools=[generate_and_analyze_names],
 )
+
