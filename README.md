@@ -46,12 +46,12 @@ Core to Naming Master is a **Stateless Root Agent** pattern that ensures reliabi
 
 The system is powered by a unique **Atomic Tool** (`generate_and_analyze_names`) that encapsulates the entire naming pipeline into a single transaction, preventing agent memory loss or timeouts.
 
-**1. The Knowledge Engine (The Brain)**
+**1. The Knowledge Engine (The Rational Brain)**
 A deterministic Python class that grounds the agent in facts. It contains:
 * **Surname Map:** A database mapping Western surnames (e.g., "Smith" → "Shi") and internet handles to authentic Chinese surnames.
 * **Stroke Database:** A hard-coded dictionary of Kangxi stroke counts to ensure 100% mathematical accuracy for numerology, solving the issue where LLMs often "guess" stroke counts incorrectly.
 
-**2. The Generator Pipeline (The Creative)**
+**2. The Generator Pipeline (The Creative Brain)**
 Uses `gemini-2.5-flash-lite` to phonetically transliterate the user's First Name while strictly adhering to the surname provided by the Knowledge Engine. It optimizes for elegance and standard length (2-3 characters).
 
 **3. The Safety Audit (The Validator)**
