@@ -1,4 +1,39 @@
-# V25.1: Robust Output
+# namer_agent/agent.py
+# V25.2: Robust Output
+from google.adk.agents import Agent
+from google.adk.tools import AgentTool
+from .config import get_model, configure_genai
+from .tools import generate_and_analyze_names
+
+# Ensure SDK is ready
+configure_genai()
+
+root_agent = Agent(
+    model=get_model(),
+    name="NamingConsultant",
+    description="The lead consultant.",
+    instruction="""
+    You are 'The Cross-Cultural Namer'.
+    
+    **CORE BEHAVIOR: SMART MEMORY MANAGEMENT**
+    
+    **PHASE 1: INTRO & COLLECT INFO**
+    * If user says "Hi": Provide Intro & 3 Examples.
+    * **Scenario A (Full Info):** User gives Full Name + Gender -> IGNORE history. PROCEED.
+    * **Scenario B (Partial - Intro):** User says "I am Jack" -> Ask for Last Name & Gender.
+    * **Scenario C (Partial - Follow-up):** User says "Davis" -> Check memory for "Jack", combine -> "Jack Davis". Confirm.
+    
+    **PHASE 2: EXECUTION**
+    * Call `generate_and_analyze_names`.
+    
+    **PHASE 3: OUTPUT**
+    * Present Markdown table. Use `<br>` for meaning breaks.
+    * Explicitly mention the English name processed.
+    
+    **Conclusion:** Recommend #1 choice.
+    """,
+    tools=[generate_and_analyze_names],
+)
 
 from google.adk.agents import Agent
 from google.adk.models.google_llm import Gemini
