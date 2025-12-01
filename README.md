@@ -1,5 +1,5 @@
 # 🐉 Project Overview - Naming Master
-<img width="2752" height="1536" alt="NamingMasterAgent" src="NamingMasterAgent-smaller.jpg" />
+<img width="2752" height="1536" alt="NamingMasterAgent" src="NamingMasterAgent_banner.jpg" />
 
 > **Capstone Project for the Google AI Agents Intensive**
 > 
